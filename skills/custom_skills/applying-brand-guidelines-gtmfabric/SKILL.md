@@ -62,9 +62,9 @@ This skill ensures consistent, professional visual design across ICP (Ideal Cust
 
 ### Typography
 
-**Primary Font**: Epilogue (Variable font, weight 100-900)
+**Primary Font**: Arial
 
-**Fallback Stack**: `Epilogue, sans-serif`
+**Fallback Stack**: `Arial, sans-serif`
 
 **Type Scale (Mobile → Desktop)**:
 - **H1 (Card Headers)**: 20px → 30px / 1.25rem → 1.875rem
@@ -542,12 +542,9 @@ client/src/
 
 **Font Loading**:
 ```css
-@font-face {
-  font-family: 'Epilogue';
-  src: url('/Epilogue.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
+/* Arial is a system font, no @font-face needed */
+body {
+  font-family: Arial, sans-serif;
 }
 ```
 
@@ -559,19 +556,198 @@ client/src/
 // Adds 'animate-fade-in-up' class
 ```
 
+## PowerPoint Generation
+
+### Overview
+
+The `pptx_generator.py` module provides a modern, sleek PowerPoint presentation generator using the GTM Fabric design system. It creates professional presentations with the dark purple theme, proper typography, and automatic GTM Fabric logo inclusion.
+
+### Key Features
+
+- **Modern Card-Based Layouts**: Clean, professional slide designs with rounded corners and subtle borders
+- **GTM Fabric Branding**: Automatic logo placement with configurable positioning
+- **Dark Theme**: Deep purple-black backgrounds with high-contrast text
+- **Accent Color System**: Purple accent colors (#c084fc) used strategically
+- **Typography**: Arial font family with proper sizing and weights
+- **ICP-Specific Slides**: Pre-built templates for Ideal Customer Profile presentations
+
+### Quick Start
+
+```python
+from pptx_generator import GTMFabricPresentationGenerator
+
+# Initialize generator
+generator = GTMFabricPresentationGenerator()
+
+# Create presentation
+prs = generator.create_presentation()
+
+# Add title slide
+generator.create_title_slide(
+    prs,
+    title="Your Company - Ideal Customer Profiles",
+    subtitle="Cloud Platform GTM Campaign",
+    date="January 2025"
+)
+
+# Add ICP slide
+generator.create_icp_slide(
+    prs,
+    icp_number=1,
+    icp_title="Enterprise Finance Modernizer",
+    industries=["Manufacturing", "Retail", "Healthcare"],
+    departments="Finance, FP&A, Accounting",
+    key_roles=["CFO", "VP FP&A", "Finance Director"],
+    displacement_signals=[{
+        "pain_explanation": "Using legacy EPM systems with limited flexibility",
+        "vendor_products": ["Oracle Hyperion", "SAP BPC"]
+    }],
+    expansion_signals=[{
+        "readiness_explanation": "Recently deployed cloud ERP",
+        "vendor_products": ["Workday", "NetSuite"]
+    }]
+)
+
+# Save presentation
+generator.save_presentation(prs, "output.pptx")
+```
+
+### Generate from JSON
+
+For ICP campaigns, use the convenience function to generate complete presentations from JSON data:
+
+```python
+from pptx_generator import generate_icp_presentation
+import json
+
+# Load ICP data
+with open('icps.json', 'r') as f:
+    data = json.load(f)
+
+# Generate presentation
+generate_icp_presentation(
+    campaign_info=data['campaign_info'],
+    icps=data['icps'],
+    output_path='client-icps.pptx'
+)
+```
+
+### Slide Types
+
+#### 1. Title Slide
+- Large title with accent underline
+- Subtitle in accent color
+- Optional date
+- GTM Fabric logo (top-right by default)
+- Modern accent bar design element
+
+#### 2. Content Slide
+- Card-based content area with rounded corners
+- Multiple content sections with headers
+- Bullet points or plain text
+- Consistent spacing and typography
+- Optional page numbers
+
+#### 3. ICP Slide
+- ICP badge with number
+- Industries section
+- Departments & key roles
+- Technographic fit section:
+  - Displacement / Modernization Signals
+  - Expansion Signals
+- Vendor products with arrow notation (→)
+
+### Customization Options
+
+**Logo Positioning**:
+```python
+generator._add_logo(slide, position="top-right", size=0.8)
+# Options: "top-right", "top-left", "bottom-right", "bottom-left"
+```
+
+**Custom Colors**:
+```python
+# Override default colors if needed
+from pptx_generator import GTMFabricColors
+from pptx.dml.color import RGBColor
+
+colors = GTMFabricColors()
+colors.accent = RGBColor(200, 150, 250)  # Custom purple
+```
+
+**Slide Dimensions**:
+```python
+# Default: 10" × 5.625" (16:9 standard)
+prs = generator.create_presentation(slide_width=10, slide_height=5.625)
+
+# Traditional 4:3 format
+prs = generator.create_presentation(slide_width=10, slide_height=7.5)
+```
+
+### Design Guidelines for PowerPoint
+
+When creating presentations with this tool:
+
+1. **Keep text concise** - Slides are designed for executive audiences
+2. **Use bullet points** - Maximum 3-5 bullets per section
+3. **Highlight vendor names** - Products appear after arrow (→) notation
+4. **Maintain hierarchy** - Headers use accent color, body uses primary text color
+5. **Include page numbers** - Especially for multi-slide presentations
+6. **Logo consistency** - Logo appears on all slides by default
+
+### File Locations
+
+- **Generator Module**: `pptx_generator.py`
+- **White Logo**: `gtmfabric_logo_white.png` (used for dark theme)
+- **Black Logo**: `gtmfabric_logo_black.png` (available for light backgrounds)
+- **Design System**: `apply_brand.py` (color and typography tokens)
+
+### Requirements
+
+```bash
+pip install python-pptx
+```
+
+The module requires the `python-pptx` library for PowerPoint generation.
+
+### Best Practices
+
+1. **Validate JSON structure** before passing to generator
+2. **Keep vendor lists concise** (2-3 products max per signal)
+3. **Use descriptive ICP titles** that identify the persona
+4. **Test generated files** in PowerPoint/Keynote before sharing
+5. **Verify logo renders** properly on all slides
+
+### Troubleshooting
+
+**Logo not appearing**:
+- Check that `gtmfabric_logo_white.png` exists in the skill directory
+- Verify file permissions allow reading the logo file
+- Try specifying full path: `GTMFabricPresentationGenerator(logo_path="/full/path/to/logo.png")`
+
+**Font not displaying correctly**:
+- Arial is a standard system font on all platforms
+- Falls back to sans-serif if needed
+
+**Text overflow**:
+- Reduce content length if text doesn't fit
+- Use shorter vendor product names
+- Break long explanations into multiple bullets
+
 ## Notes
 
 - This design system targets enterprise B2B applications
 - Dark theme optimized for extended viewing sessions
 - Purple accent creates professional tech aesthetic
-- Mobile-first ensures accessibility across devices
+- Mobile-first ensures accessibility across devices (web)
+- PowerPoint generation available for ICP presentations
 - Animations enhance UX without overwhelming users
 - System prioritizes content readability and data clarity
 
 ---
 
-**Framework**: React + TypeScript  
-**Styling**: Tailwind CSS + CSS Custom Properties  
-**Icons**: Lucide React  
-**Components**: Shadcn/ui + Radix UI primitives  
+**Framework**: React + TypeScript (Web) | Python (PowerPoint)
+**Styling**: Tailwind CSS + CSS Custom Properties (Web) | python-pptx (PowerPoint)
+**Icons**: Lucide React
+**Components**: Shadcn/ui + Radix UI primitives
 **Version**: 1.0.0 (October 2025)

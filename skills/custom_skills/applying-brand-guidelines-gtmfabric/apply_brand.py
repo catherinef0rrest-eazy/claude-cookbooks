@@ -37,7 +37,7 @@ class DesignTokens:
     accent_primary: str = "#c084fc"
 
     # Typography
-    font_primary: str = "Epilogue"
+    font_primary: str = "Arial"
     font_fallback: List[str] = field(default_factory=lambda: ["sans-serif"])
 
     # Font sizes (mobile → desktop)

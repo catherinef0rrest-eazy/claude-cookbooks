@@ -19,7 +19,7 @@ class ICPDesignGuidelines:
     accent_primary: str = "#c084fc"
 
     # Typography
-    font_family: str = "Epilogue"
+    font_family: str = "Arial"
     approved_font_weights: List[int] = None
 
     # Spacing scale (in px)

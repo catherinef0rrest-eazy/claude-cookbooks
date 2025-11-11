@@ -38,8 +38,8 @@
 
 ## Typography
 
-**Font Family**: Epilogue (Variable weight 100-900)
-**Fallback**: `Epilogue, sans-serif`
+**Font Family**: Arial
+**Fallback**: `Arial, sans-serif`
 
 ### Type Scale (Mobile → Desktop)
 | Element | Mobile | Desktop | Classes |
@@ -380,7 +380,7 @@ client/src/
   --accent: #c084fc;
 
   /* Typography */
-  --font-primary: Epilogue, sans-serif;
+  --font-primary: Arial, sans-serif;
 }
 ```
 
