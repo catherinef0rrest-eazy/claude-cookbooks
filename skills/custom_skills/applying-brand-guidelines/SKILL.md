@@ -9,9 +9,9 @@ This skill ensures all generated documents adhere to corporate brand standards f
 
 ## Brand Identity
 
-### Company: Acme Corporation
-**Tagline**: "Innovation Through Excellence"
-**Industry**: Technology Solutions
+### Company: GTM Fabric
+**Tagline**: "Unified Data. Expert Strategy."
+**Industry**: GTM Intelligence
 
 ## Visual Standards
 

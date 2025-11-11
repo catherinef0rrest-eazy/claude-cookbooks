@@ -1,0 +1,14 @@
+{
+    "mcpServers": {
+      "gtm-fabric-ontologies": {
+        "command": "/Users/catherineforrest/.local/bin/uv",
+        "args": [
+          "--directory",
+          "/Users/catherineforrest/gtmfabric/abi-private",
+          "run",
+          "mcp-ontology-server"
+        ],
+        "env": {}
+      }
+    }
+  }
