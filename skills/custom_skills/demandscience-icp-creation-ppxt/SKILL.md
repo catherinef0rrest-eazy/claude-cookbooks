@@ -1,7 +1,8 @@
 ---
 name: demandscience-icp-creation-ppxt
 description: Research and generate 4 enterprise-grade Ideal Customer Profiles (ICPs) for technology sales GTM campaigns using web research and GTM Fabric ontologies, then create a professional PowerPoint presentation
-version: 1.0.0
+metadata:
+  version: 1.0.0
 ---
 
 # DemandScience ICP Creation Skill
@@ -92,8 +93,8 @@ Context: Legacy financial consolidation and planning platforms
 
 #### 5. Technographic or Intent Data (OPTIONAL)
 Contains:
-- **Technologies Installed**: Current tech stack (from HG Insights, BuyerCaddy, ZoomInfo)
-- **Intent Topics**: Research areas by target accounts
+- **Technologies Installed**: Current tech stack
+- **Intent Topics**: Key words likely researched by target accounts indicating a need for DemandScience's customers solution
 - **Signal Trends**: Rising/falling interest indicators
 - Used for Expansion Signals (buying readiness)
 
@@ -124,33 +125,10 @@ Execute these steps in order:
 
 Use the `gtm-fabric-ontologies` MCP server:
 
-1. **Get ontology statistics**:
-   ```
-   Tool: mcp__gtm-fabric-ontologies__get_ontology_stats
-   Purpose: Understand available ontologies and their scope
-   ```
-
-2. **Extract ICP targeting ontology**:
-   ```
-   Tool: mcp__gtm-fabric-ontologies__extract_ontology_classes
-   Parameter: ontology_uri = "ontology://domain/gtm-targeting-icp"
-   Purpose: Load formal ICP structure, technographic concepts, buyer persona framework
-   ```
-
-3. **Search for relevant ontology concepts**:
-   ```
-   Tool: mcp__gtm-fabric-ontologies__search_ontologies
-   Parameters: Use keywords from campaign brief (e.g., "displacement", "technographic", industry terms)
-   Purpose: Find ontological patterns relevant to the specific campaign
-   ```
-
-**What to Extract from Ontologies:**
-- `gtm:IdealCustomerProfile` - Root structure for outputs
-- `gtm:BuyerPersona` - Framework for key roles/titles
-- `gtm:CompetitiveTechnologyStack` - Structure for displacement signals
-- `gtm:ComplementaryTechnologyStack` - Structure for expansion signals
-- `gtm:FirmographicQuality` - Industry and company size criteria
-- `gtm:TechnographicQuality` - Tech stack assessment framework
+**Find related ontology concepts for better understanding**
+Tool: mcp__gtm-fabric-ontologies__search_ontologies
+Input: Keywords from the campaign brief (like ‚Äúdisplacement,‚Äù ‚Äútechnographic,‚Äù or industry terms)
+Goal: Use ontology concepts to add context and meaning, so your campaign output is more accurate and relevant.
 
 **Use ontology context to:**
 - Validate that your ICP structure aligns with GTM Fabric standards
@@ -311,8 +289,8 @@ Create structured JSON with exactly 4 distinct ICPs following this format:
      - **Industries**: Bullet list of target industries
      - **Departments & Business Functions**: Text description + bullet list of key roles
      - **Technographic Fit** with two subsections:
-       - **Displacement / Modernization Signals**: 2-3 bullets, pain í vendor products in bold
-       - **Expansion Signals**: 2-3 bullets, readiness í vendor products in bold
+       - **Displacement / Modernization Signals**: 2-3 bullets, pain ÔøΩ vendor products in bold
+       - **Expansion Signals**: 2-3 bullets, readiness ÔøΩ vendor products in bold
 
 3. **Summary Slide** (optional for complex campaigns):
    - Key takeaways across all 4 ICPs
@@ -388,12 +366,12 @@ Key Job Roles / Job Titles:
 Technographic Fit
 
 Displacement / Modernization Signals:
-" [Business pain explanation] í [Vendor Product 1], [Vendor Product 2]
-" [Business pain explanation] í [Vendor Product 3]
+" [Business pain explanation] ÔøΩ [Vendor Product 1], [Vendor Product 2]
+" [Business pain explanation] ÔøΩ [Vendor Product 3]
 
 Expansion Signals:
-" [Readiness signal explanation] í [Vendor Product 4], [Vendor Product 5]
-" [Readiness signal explanation] í [Vendor Product 6]
+" [Readiness signal explanation] ÔøΩ [Vendor Product 4], [Vendor Product 5]
+" [Readiness signal explanation] ÔøΩ [Vendor Product 6]
 ```
 
 ## Style & Tone Rules
@@ -469,12 +447,12 @@ Key Roles:
 Technographic Fit
 
 Displacement / Modernization Signals:
-" Relying on outdated antivirus agents without behavioral detection í Symantec Endpoint Protection, McAfee ePO
-" Manual patching and unmanaged device visibility í Trend Micro OfficeScan, Sophos Enterprise Console
+" Relying on outdated antivirus agents without behavioral detection ÔøΩ Symantec Endpoint Protection, McAfee ePO
+" Manual patching and unmanaged device visibility ÔøΩ Trend Micro OfficeScan, Sophos Enterprise Console
 
 Expansion Signals:
-" Recently implemented SIEM or SOAR for centralized visibility í Splunk Enterprise Security, IBM QRadar
-" Using hybrid device management for remote workforce í Microsoft Intune, VMware Workspace ONE
+" Recently implemented SIEM or SOAR for centralized visibility ÔøΩ Splunk Enterprise Security, IBM QRadar
+" Using hybrid device management for remote workforce ÔøΩ Microsoft Intune, VMware Workspace ONE
 ```
 
 ### Example 2: Finance Automation
@@ -496,12 +474,12 @@ Key Roles:
 Technographic Fit
 
 Displacement / Modernization Signals:
-" Reliance on disconnected spreadsheets and static reporting í Excel, Google Sheets
-" Using legacy consolidation systems that lack scenario modeling í IBM Cognos TM1, SAP BPC
+" Reliance on disconnected spreadsheets and static reporting ÔøΩ Excel, Google Sheets
+" Using legacy consolidation systems that lack scenario modeling ÔøΩ IBM Cognos TM1, SAP BPC
 
 Expansion Signals:
-" Recently deployed modern cloud ERP í Workday Financials, Oracle Fusion Cloud ERP
-" Investing in self-service analytics tools í Power BI, Tableau Online
+" Recently deployed modern cloud ERP ÔøΩ Workday Financials, Oracle Fusion Cloud ERP
+" Investing in self-service analytics tools ÔøΩ Power BI, Tableau Online
 ```
 
 ### Example 3: Cloud Modernization
@@ -523,12 +501,12 @@ Key Roles:
 Technographic Fit
 
 Displacement / Modernization Signals:
-" Running heavily virtualized data centers with high OpEx í VMware vSphere, Citrix XenServer
-" Legacy disaster recovery solutions lacking elasticity í Commvault, Veeam Backup & Replication
+" Running heavily virtualized data centers with high OpEx ÔøΩ VMware vSphere, Citrix XenServer
+" Legacy disaster recovery solutions lacking elasticity ÔøΩ Commvault, Veeam Backup & Replication
 
 Expansion Signals:
-" Already integrated identity and governance tools í Azure AD, AWS IAM
-" Using cloud-based monitoring or automation í Datadog, Terraform Cloud
+" Already integrated identity and governance tools ÔøΩ Azure AD, AWS IAM
+" Using cloud-based monitoring or automation ÔøΩ Datadog, Terraform Cloud
 ```
 
 ### Example 4: AI Readiness & Data Modernization
@@ -550,12 +528,12 @@ Key Roles:
 Technographic Fit
 
 Displacement / Modernization Signals:
-" Using on-prem data warehouses that can't scale í Oracle Exadata, IBM Netezza
-" Limited access to unstructured or real-time data í SAP BW, Informatica PowerCenter
+" Using on-prem data warehouses that can't scale ÔøΩ Oracle Exadata, IBM Netezza
+" Limited access to unstructured or real-time data ÔøΩ SAP BW, Informatica PowerCenter
 
 Expansion Signals:
-" Recently adopted cloud data platform í Snowflake, Databricks, BigQuery
-" Using modern orchestration or catalog tools í Apache Airflow, Alation, Collibra
+" Recently adopted cloud data platform ÔøΩ Snowflake, Databricks, BigQuery
+" Using modern orchestration or catalog tools ÔøΩ Apache Airflow, Alation, Collibra
 ```
 
 ## Research Best Practices
@@ -699,5 +677,5 @@ Final Output: Professional PowerPoint presentation ready for DemandScience sales
 
 - Keep reference list of verified vendor technologies by category
 - Update examples quarterly to match new product names and market shifts
-- Recognize pattern clusters (e.g., "spreadsheet pain" í FP&A, "legacy antivirus" í Endpoint Security)
+- Recognize pattern clusters (e.g., "spreadsheet pain" ÔøΩ FP&A, "legacy antivirus" ÔøΩ Endpoint Security)
 - If input lacks specificity, generate 4 most plausible ICPs for the offering's category
