@@ -100,6 +100,11 @@ Target Accounts (Prospective Customers)
 
 ## Acceptance Criteria
 
+Human-in-the-Loop Review Process
+  - Skill outputs ICPs Markdown and explicitly requests user review
+  - User can edit, refine, or approve ICP content
+  - System accepts the human-verified/edited content
+   as input for PowerPoint generation
 
 ## Definition of Done
 
@@ -111,10 +116,15 @@ Target Accounts (Prospective Customers)
 
 ## Required Tooling
 
+- Claude API with Skills Beta support
+- Web research capabilities (WebSearch or similar)
+- Python-pptx library for PowerPoint generation
+
 ## Tooling Constraints
-- 
-- Claude (https://docs.claude.com/en/docs)
--- C
+
+- Claude API with Skills support
+- Web research capabilities for vendor/product validation
+- Python-pptx library for PowerPoint generation
 
 ## Prompts Used To Accomplish This Manually 
 

@@ -6,7 +6,7 @@ Create a Claude Skill that researches and generates enterprise-grade Ideal Custo
 ## Input Specification
 
 ### Input Specification Purpose
-This specification defines the structured input format for generating Ideal Customer Profiles (ICPs) based on Account-Based Marketing (ABM) campaign requirements from DemandScience customers. The input describes how DemandScience sellers communicate their clients' B2B technology vendor go-to-market strategies and target market characteristics to GTM Fabric. This skill will output the ICPs in json and then will take that JSON and for each ICP will create a pptx slide. The final output will be a pptx presentation 
+This specification defines the structured input format for generating Ideal Customer Profiles (ICPs) based on Account-Based Marketing (ABM) campaign requirements from DemandScience customers. The input describes how DemandScience sellers communicate their clients' B2B technology vendor go-to-market strategies and target market characteristics to GTM Fabric. \
 
 ---
 
