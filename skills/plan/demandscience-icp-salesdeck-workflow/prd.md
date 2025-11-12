@@ -118,13 +118,13 @@ Human-in-the-Loop Review Process
 
 - Claude API with Skills Beta support
 - Web research capabilities (WebSearch or similar)
-- Python-pptx library for PowerPoint generation
+- Claude skill calling "skill_id": "pptx" from Claude skill library for PowerPoint generation
 
 ## Tooling Constraints
 
 - Claude API with Skills support
 - Web research capabilities for vendor/product validation
-- Python-pptx library for PowerPoint generation
+- Claude skill calling "skill_id": "pptx" from Claude skill library for PowerPoint generation
 
 ## Prompts Used To Accomplish This Manually 
 

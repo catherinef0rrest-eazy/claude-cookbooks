@@ -1,12 +1,12 @@
-# DemandScience ICP Creation Claude Skill Specification
+# DemandScience ICP Creation Claude Skill Technical Specification
 
 ## Instructions
-Create a Claude Skill that researches and generates enterprise-grade Ideal Customer Profiles (ICPs) for specified technology sales go-to-market (GTM) campaigns using web research to validate required and optional (if present) input components. Your goal is to produce four distinct ICPs that capture firmographic and technographic characteristics of ideal buyers. Each ICP must connect real technologies to business needs / pain points and trigger signals in clear, executive-friendly language.
+Create a Claude Skill that researches and generates enterprise-grade Ideal Customer Profiles (ICPs) for specified technology sales go-to-market (GTM) campaigns. Your goal is to produce at least three distinct ICPs that capture firmographic and technographic characteristics of ideal buyers. Each ICP must connect real technologies to business needs / pain points and trigger signals in clear, executive-friendly language.
 
 ## Input Specification
 
 ### Input Specification Purpose
-This specification defines the structured input format for generating Ideal Customer Profiles (ICPs) based on Account-Based Marketing (ABM) campaign requirements from DemandScience customers. The input describes how DemandScience sellers communicate their clients' B2B technology vendor go-to-market strategies and target market characteristics to GTM Fabric. \
+This specification defines the structured input format for generating Ideal Customer Profiles (ICPs) based on Account-Based Marketing (ABM) campaign requirements from DemandScience customers. The input describes how DemandScience sellers communicate their clients' B2B technology vendor go-to-market strategies and target market characteristics to GTM Fabric.
 
 ---
 
