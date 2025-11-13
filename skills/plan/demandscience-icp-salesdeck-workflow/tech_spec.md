@@ -1,7 +1,7 @@
 # DemandScience ICP Creation Claude Skill Technical Specification
 
 ## Instructions
-Create a Claude Skill that researches and generates enterprise-grade Ideal Customer Profiles (ICPs) for specified technology sales go-to-market (GTM) campaigns. Your goal is to produce at least three distinct ICPs that capture firmographic and technographic characteristics of ideal buyers. Each ICP must connect real technologies to business needs / pain points and trigger signals in clear, executive-friendly language.
+Create a Claude Skill that automates the full workflow from DemandScience email brief to PowerPoint presentation, including a human review checkpoint. This skill researches and generates enterprise-grade Ideal Customer Profiles (ICPs) for specified technology sales go-to-market (GTM) campaigns, outputs them in Markdown format for human review and editing, then converts the approved content into a branded PowerPoint presentation. Your goal is to produce at least three distinct ICPs that capture firmographic and technographic characteristics of ideal buyers. Each ICP must connect real technologies to business needs / pain points and trigger signals in clear, executive-friendly language.
 
 ## Input Specification
 
@@ -303,17 +303,65 @@ After research, create a brief summary (for your reference, not in final output)
 - **Expansion Signals**: Use VALIDATED products from research - modern or adjacent tools showing readiness for integration or scaling
 - Ensure all vendor/product names are current and accurate based on 2025 market research
 
-### 4. Output Four Distinct ICPs
+### 4. Output at Least Three Distinct ICPs
 - Each ICP covers a unique persona, function, or industry segment
 - Always include Industries, Departments & Functions, and Technographic Fit sections
 - Use only research-validated vendor names and products
 
+## Workflow Stages
+
+This skill implements a two-stage workflow with human-in-the-loop review:
+
+### Stage 1: ICP Generation & Human Review
+
+**Objective**: Research, generate, and deliver ICPs in editable format for user verification
+
+**Process**:
+1. Parse DemandScience email brief to extract campaign requirements
+2. Conduct systematic web research (as outlined in Research Process section)
+3. Generate at least three distinct ICPs following the structure guidelines
+4. Output ICPs in **Markdown format** for human review
+5. Explicitly request user review with prompt: "Please review these ICPs and provide any edits or approve them for PowerPoint generation"
+6. Wait for user feedback
+
+**User Actions**:
+- Review ICP content for accuracy and relevance
+- Edit business pain points, vendor names, or buyer personas as needed
+- Refine industry focus or technographic signals
+- Approve ICPs for conversion to PowerPoint
+
+**Output Format**: Plain text Markdown (see Output Format section below)
+
+### Stage 2: PowerPoint Generation
+
+**Objective**: Convert approved ICPs into branded PowerPoint presentation
+
+**Process**:
+1. Accept human-verified/edited ICP content from Stage 1
+2. Call Claude skill library pptx skill (`skill_id: "pptx"`)
+3. Apply GTM Fabric branding requirements (see Branding section below)
+4. Generate PowerPoint file with:
+   - Title slide with campaign overview (DemandScience customer name, products, campaign goal)
+   - One slide per ICP with formatted content
+   - Consistent branding throughout
+5. Return PowerPoint file for delivery to DemandScience
+
+**User Actions**:
+- Download and review PowerPoint presentation
+- Deliver to DemandScience for joint GTM sales enablement
+
+**Output Format**: PowerPoint (.pptx) file
+
 ## Output Format
 
-Generate exactly 4 ICPs in JSON format optimized for pptx slide creation using this structure for each:
+### Stage 1 Output: Markdown Format for Human Review
 
-```
-## ICP [1-4]: [Descriptive Title]
+Generate at least three ICPs in **plain text Markdown format** to enable human review and editing. This format allows users to easily read, edit, and verify content before PowerPoint generation.
+
+Use this structure for each ICP:
+
+```markdown
+## ICP [1-3+]: [Descriptive Title]
 
 ### Industries
 - [Industry 1], [Industry 2], [Industry 3]
@@ -336,6 +384,42 @@ Generate exactly 4 ICPs in JSON format optimized for pptx slide creation using t
 - [Plain-English readiness signal explanation] → **[Vendor Product(s)]**
 - [Plain-English readiness signal explanation] → **[Vendor Product(s)]**
 ```
+
+**Review Prompt**: After outputting ICPs in Markdown format, explicitly state:
+```
+Please review these ICPs. You can:
+- Edit any content directly in the Markdown
+- Refine vendor names, pain points, or buyer personas
+- Adjust industry focus or technographic signals
+- Approve them as-is for PowerPoint generation
+
+Once you've reviewed and are ready to proceed, let me know and I'll convert them to a branded PowerPoint presentation.
+```
+
+### Stage 2 Output: PowerPoint Presentation
+
+**[PLACEHOLDER: TO BE UPDATED AFTER REVERSE ENGINEERING GTM FABRIC PPTX TEMPLATE]**
+
+After user approval of Markdown ICPs, this section will detail:
+- How to call the custom GTM Fabric branded pptx skill
+- Slide structure and layout specifications
+- Content mapping from Markdown to PowerPoint slides
+- Specific formatting and design requirements
+
+This section will be populated once the GTM Fabric pptx template has been reverse engineered and the custom skill has been created.
+
+## GTM Fabric Branding Requirements
+
+**[PLACEHOLDER: TO BE UPDATED AFTER REVERSE ENGINEERING GTM FABRIC PPTX TEMPLATE]**
+
+This section will include:
+- Color palette specifications
+- Typography guidelines
+- Logo usage and placement rules
+- Slide layout requirements
+- Custom skill implementation details
+
+These specifications will be extracted from the GTM Fabric branded PowerPoint template.
 
 ## Style & Tone Rules
 
@@ -524,26 +608,36 @@ Data Engineering, Analytics, IT Strategy
 
 Before outputting, verify:
 
+### Stage 1: ICP Generation
 - **Research Completed**: Conducted WebSearch for vendors, competitors, and industry pain points
-- **Structure**: 4 ICPs included, formatted correctly
+- **Structure**: At least 3 ICPs included, formatted correctly in Markdown
 - **Vendor Precision**: Real, current vendors and product names validated through research
 - **Business Logic**: Pain = Legacy, Readiness = Acceleration
 - **Tone**: Executive, credible, business-first
-- **Segmentation**: 4 distinct buyer segments
+- **Segmentation**: At least 3 distinct buyer segments
+- **Output Format**: Plain text Markdown (not JSON) for human editability
+- **Review Prompt**: Explicitly requests user review and approval before Stage 2
+
+### Stage 2: PowerPoint Generation
+**[PLACEHOLDER: TO BE UPDATED AFTER REVERSE ENGINEERING GTM FABRIC PPTX TEMPLATE]**
+- Custom skill implementation validated
+- GTM Fabric branding applied correctly
+- All ICP content accurately transferred from Markdown
+- Slide structure follows template specifications
 
 ## Continuous Improvement Tips
 
 - Keep a reference list of verified vendor technologies by category
 - Update examples quarterly to match new product names and market shifts
 - Recognize pattern clusters (e.g., "spreadsheet pain" → FP&A, "legacy antivirus" → Endpoint Security)
-- If input lacks specificity, generate 4 most plausible ICPs for the offering's category
+- If input lacks specificity, generate at least 3 most plausible ICPs for the offering's category
 
 ## Usage Examples
 
 User requests that trigger this skill:
 
 - "Create ICPs for our Kaspersky XDRO campaign targeting mid-market financial services"
-- "Generate 4 ICPs for a Vena Solutions campaign replacing Oracle EPM Cloud"
+- "Generate ICPs for a Vena Solutions campaign replacing Oracle EPM Cloud"
 - "I need ICPs for a cloud migration campaign targeting VMware customers"
 - "Build ICPs for our data modernization offering in retail and logistics"
 - "Create buyer profiles for [product] targeting [industry] with [competitor] takeouts"
