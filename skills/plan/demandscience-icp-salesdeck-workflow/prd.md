@@ -108,11 +108,52 @@ Human-in-the-Loop Review Process
 
 ## Definition of Done
 
-## Must Have Features
+## Must Have Features (Phase 1 / MVP)
 
-- **[Feature 1]**: [Description and acceptance criteria]
-- **[Feature 2]**: [Description and acceptance criteria]
-- **[Feature 3]**: [Description and acceptance criteria]
+- **Feature 1: Email Brief Parsing & ICP Research**
+  - Extract campaign requirements from DemandScience email
+  - Conduct systematic web research for vendor validation
+  - Generate at least 3 distinct, research-validated ICPs
+  - Acceptance: All ICPs contain real vendor names and validated products
+
+- **Feature 2: Markdown Output with Human Review**
+  - Output ICPs in plain text Markdown format
+  - Explicitly request user review with clear prompt
+  - Accept human edits and refinements
+  - Acceptance: User can edit all content before PowerPoint generation
+
+- **Feature 3: Branded PowerPoint Generation**
+  - Convert approved Markdown to PowerPoint using template
+  - Apply GTM Fabric branding (colors, fonts, layout)
+  - Populate Slide 1 with campaign information
+  - Replace `{target account logo}` placeholder with **DemandScience customer name (text)**
+  - Generate one slide per ICP (Slides 5+)
+  - Acceptance: Output matches template design exactly, all placeholders replaced
+
+**Terminology Note**: The template placeholder `{target account logo}` actually refers to **DemandScience's customer** (the technology vendor like Kaspersky, Vena Solutions, Autodesk), not the end target accounts.
+
+## Phase 2 Features (Future Enhancement)
+
+- **Feature 4: Automated Logo Discovery**
+  - Extract DemandScience customer name from brief
+  - Web search for company logo (PNG with transparent background)
+  - Display found logo(s) to user for approval
+  - User options: Approve, upload alternative, or skip Slide 2
+  - If approved, replace `{target account logo}` with actual logo image
+  - Acceptance: Logo correctly positioned on Slide 2, user validation required
+
+- **Feature 5: Logo Quality Validation**
+  - Validate logo resolution (minimum 300px width)
+  - Check for transparent or white background
+  - Verify file format (PNG, SVG, JPG)
+  - Ensure reasonable file size (< 2MB)
+  - Acceptance: Only quality logos inserted, warnings shown for low-quality
+
+- **Feature 6: Graceful Fallback**
+  - If logo not found, prompt for manual upload
+  - If user declines, remove Slide 2 from deck
+  - Continue workflow without logo
+  - Acceptance: Workflow never blocks on logo availability
 
 ## Required Tooling
 

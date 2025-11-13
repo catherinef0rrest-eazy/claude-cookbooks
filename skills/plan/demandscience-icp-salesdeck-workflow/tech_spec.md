@@ -338,13 +338,22 @@ This skill implements a two-stage workflow with human-in-the-loop review:
 
 **Process**:
 1. Accept human-verified/edited ICP content from Stage 1
-2. Call Claude skill library pptx skill (`skill_id: "pptx"`)
-3. Apply GTM Fabric branding requirements (see Branding section below)
-4. Generate PowerPoint file with:
-   - Title slide with campaign overview (DemandScience customer name, products, campaign goal)
-   - One slide per ICP with formatted content
+2. Extract DemandScience customer name from brief (e.g., "Kaspersky", "Vena Solutions")
+3. Call Claude skill library pptx skill (`skill_id: "pptx"`) or use template cloning
+4. Apply GTM Fabric branding requirements (see Branding section below)
+5. Generate PowerPoint file with:
+   - **Slide 1**: Title slide with campaign overview (DemandScience customer name, products, campaign goal)
+   - **Slide 2**: Replace `{target account logo}` with **DemandScience customer name as text** (Phase 1)
+   - **Slides 3-4**: GTM Fabric value prop and Propensity Funnel (unchanged from template)
+   - **Slides 5+**: One slide per ICP with formatted content
    - Consistent branding throughout
-5. Return PowerPoint file for delivery to DemandScience
+6. Return PowerPoint file for delivery to DemandScience
+
+**Terminology Clarification**: The template placeholder `{target account logo}` refers to **DemandScience's customer** (the technology vendor), not the end target accounts that the customer is trying to reach.
+
+**Phase 1 Implementation**: Replace `{target account logo}` with text only (customer name)
+
+**Phase 2 Enhancement** (Future): Automated logo fetch with validation (see Phase 2 Features below)
 
 **User Actions**:
 - Download and review PowerPoint presentation
@@ -665,3 +674,89 @@ User requests that trigger this skill:
 6. **Data Source Awareness**: Note whether the ABM campaign targeting relies on HG Insights, BuyerCaddy, intent data, or install base signals—this affects ICP specificity and activation feasibility.
 
 7. **Campaign Objectives Drive Everything**: The DemandScience customer's campaign focus and goals should guide all ICP development—every indicator should tie back to the sales strategy.
+
+---
+
+## Phase 2 Features (Future Enhancement)
+
+### Automated Logo Discovery & Insertion
+
+**Objective**: Replace `{target account logo}` with actual logo image instead of text
+
+**Implementation Approach**:
+
+1. **Logo Discovery**
+   - Extract DemandScience customer name from brief
+   - Web search using queries:
+     - "[Company Name] logo png transparent background"
+     - "[Company Name] official logo download"
+     - "[Company Name] brand assets"
+   - Look for official brand pages, Wikipedia, logo repositories
+
+2. **Logo Download & Validation**
+   ```python
+   def validate_logo(logo_file):
+       checks = {
+           'resolution': logo_width >= 300,  # Minimum 300px width
+           'format': ext in ['png', 'svg', 'jpg', 'jpeg'],
+           'file_size': size_mb < 2,  # Maximum 2MB
+           'background': has_transparency or has_white_bg
+       }
+       return all(checks.values())
+   ```
+
+3. **User Validation Workflow**
+   - Display found logo(s) to user
+   - User options:
+     - ✓ Approve displayed logo
+     - ↑ Upload alternative logo file
+     - ⊗ Skip Slide 2 entirely
+   - Insert approved logo into Slide 2 `{target account logo}` position
+
+4. **Logo Insertion**
+   ```python
+   # Replace text placeholder with image
+   # Maintain aspect ratio
+   # Position: Center-right area of Slide 2
+   # Max width: ~4 inches
+   # Format: PNG with transparency preferred
+   ```
+
+5. **Fallback Handling**
+   - Logo not found → Prompt for manual upload
+   - User declines → Remove Slide 2 from deck
+   - Upload fails → Continue with text fallback (Phase 1 behavior)
+
+**API/Service Options**:
+- WebSearch tool for logo discovery
+- Optional: Clearbit Logo API, Brandfetch API
+- Image download and format conversion libraries
+
+**Quality Validation**:
+- Minimum resolution: 300x300px
+- Supported formats: PNG (preferred), SVG, JPG, JPEG
+- Maximum file size: 2MB
+- Background: Transparent or white preferred
+
+**Time Impact**: +30-60 seconds for logo fetch and validation
+
+**Dependencies**:
+- Image processing library (Pillow)
+- URL download capabilities
+- File format conversion support
+
+---
+
+## Quality Assurance & Testing
+
+For testing procedures, evaluation criteria, and methods to ensure consistent skill outputs, see:
+
+**[QA Testing & Evaluation Plan](./qa_testing_plan.md)**
+
+This separate document includes:
+- Golden test cases for common scenarios
+- Format validation checklists
+- Quality spot check procedures
+- Consistency testing approach
+- Real-world validation workflow
+- Feedback tracking system
