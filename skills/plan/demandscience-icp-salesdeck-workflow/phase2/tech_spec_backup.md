@@ -1,7 +1,7 @@
-# DemandScience ICP Generation Claude Skill Technical Specification
+# DemandScience ICP Creation Claude Skill Technical Specification
 
 ## Instructions
-Create a Claude Skill that automates the full workflow from DemandScience email brief to structured JSON output, including a human review checkpoint. This skill researches and generates enterprise-grade Ideal Customer Profiles (ICPs) for specified technology sales go-to-market (GTM) campaigns, outputs them in Markdown format for human review and editing, then converts the approved content into well-formatted JSON. Your goal is to produce at least three distinct ICPs that capture firmographic and technographic characteristics of ideal buyers. Each ICP must connect real technologies to business needs / pain points and trigger signals in clear, executive-friendly language.
+Create a Claude Skill that automates the full workflow from DemandScience email brief to PowerPoint presentation, including a human review checkpoint. This skill researches and generates enterprise-grade Ideal Customer Profiles (ICPs) for specified technology sales go-to-market (GTM) campaigns, outputs them in Markdown format for human review and editing, then converts the approved content into a branded PowerPoint presentation. Your goal is to produce at least three distinct ICPs that capture firmographic and technographic characteristics of ideal buyers. Each ICP must connect real technologies to business needs / pain points and trigger signals in clear, executive-friendly language.
 
 ## Input Specification
 
@@ -332,27 +332,37 @@ This skill implements a two-stage workflow with human-in-the-loop review:
 
 **Output Format**: Plain text Markdown (see Output Format section below)
 
-### Stage 2: JSON Generation
+### Stage 2: PowerPoint Generation
 
-**Objective**: Convert approved ICPs into structured JSON format
+**Objective**: Convert approved ICPs into branded PowerPoint presentation
 
 **Process**:
 1. Accept human-verified/edited ICP content from Stage 1
 2. Extract DemandScience customer name from brief (e.g., "Kaspersky", "Vena Solutions")
-3. Parse Markdown ICPs into structured data
-4. Generate well-formatted JSON with:
-   - Campaign metadata (customer name, products, campaign goal, date)
-   - Array of ICP objects with all fields properly structured
-   - Consistent schema across all ICPs
-   - Validated JSON syntax
-5. Return JSON output for delivery to DemandScience
+3. Call Claude skill library pptx skill (`skill_id: "pptx"`) or use template cloning
+4. Apply GTM Fabric branding requirements (see Branding section below)
+5. Generate PowerPoint file with:
+   - **Slide 1**: Title slide with campaign overview (DemandScience customer name, products, campaign goal)
+   - **Slide 2**: Replace `{target account logo}` with **DemandScience customer name as text** (Phase 1)
+   - **Slide 3**: Key Elements for E2E Solutions (STATIC - copy unchanged from template)
+   - **Slide 4**: Propensity Funnel (STATIC - copy unchanged from template)
+   - **Slides 5+**: One slide per ICP with formatted content
+   - Consistent branding throughout
+
+**Static Content Note**: Slides 3-4 contain fixed GTM Fabric branding and methodology content. They are copied as-is from the template without any text replacement or dynamic content.
+6. Return PowerPoint file for delivery to DemandScience
+
+**Terminology Clarification**: The template placeholder `{target account logo}` refers to **DemandScience's customer** (the technology vendor), not the end target accounts that the customer is trying to reach.
+
+**Phase 1 Implementation**: Replace `{target account logo}` with text only (customer name)
+
+**Phase 2 Enhancement** (Future): Automated logo fetch with validation (see Phase 2 Features below)
 
 **User Actions**:
-- Review JSON structure
-- Use JSON for downstream data integration and analysis
+- Download and review PowerPoint presentation
 - Deliver to DemandScience for joint GTM sales enablement
 
-**Output Format**: JSON
+**Output Format**: PowerPoint (.pptx) file
 
 ## Output Format
 
@@ -398,54 +408,30 @@ Please review these ICPs. You can:
 Once you've reviewed and are ready to proceed, let me know and I'll convert them to a branded PowerPoint presentation.
 ```
 
-### Stage 2 Output: JSON Format
+### Stage 2 Output: PowerPoint Presentation
 
-After user approval of Markdown ICPs, convert to structured JSON with the following schema:
+**[PLACEHOLDER: TO BE UPDATED AFTER REVERSE ENGINEERING GTM FABRIC PPTX TEMPLATE]**
 
-```json
-{
-  "campaign_metadata": {
-    "demandscience_customer": "string",
-    "products": ["string"],
-    "campaign_goal": "string",
-    "target_region": "string",
-    "generated_date": "ISO 8601 date",
-    "total_icps": integer
-  },
-  "icps": [
-    {
-      "icp_id": integer,
-      "title": "string",
-      "industries": ["string"],
-      "departments": ["string"],
-      "key_roles": ["string"],
-      "technographic_fit": {
-        "displacement_signals": [
-          {
-            "pain_point": "string",
-            "vendor_products": ["string"]
-          }
-        ],
-        "expansion_signals": [
-          {
-            "readiness_indicator": "string",
-            "vendor_products": ["string"]
-          }
-        ]
-      }
-    }
-  ]
-}
-```
+After user approval of Markdown ICPs, this section will detail:
+- How to call the custom GTM Fabric branded pptx skill
+- Slide structure and layout specifications
+- Content mapping from Markdown to PowerPoint slides
+- Specific formatting and design requirements
 
-**JSON Schema Requirements**:
-- All fields use snake_case naming convention
-- Vendor/product names preserved as arrays for multi-vendor signals
-- Campaign metadata includes all extracted brief information
-- Each ICP has unique numeric ID starting from 1
-- All arrays properly formatted even for single items
-- ISO 8601 date format (YYYY-MM-DD)
-- Valid, parseable JSON with proper escaping
+This section will be populated once the GTM Fabric pptx template has been reverse engineered and the custom skill has been created.
+
+## GTM Fabric Branding Requirements
+
+**[PLACEHOLDER: TO BE UPDATED AFTER REVERSE ENGINEERING GTM FABRIC PPTX TEMPLATE]**
+
+This section will include:
+- Color palette specifications
+- Typography guidelines
+- Logo usage and placement rules
+- Slide layout requirements
+- Custom skill implementation details
+
+These specifications will be extracted from the GTM Fabric branded PowerPoint template.
 
 ## Style & Tone Rules
 
@@ -644,15 +630,12 @@ Before outputting, verify:
 - **Output Format**: Plain text Markdown (not JSON) for human editability
 - **Review Prompt**: Explicitly requests user review and approval before Stage 2
 
-### Stage 2: JSON Generation
-- **Valid JSON**: Output parses without errors
-- **Complete Schema**: All required fields present
-- **Data Accuracy**: ICP content accurately transferred from Markdown
-- **Consistent Structure**: All ICPs follow same schema
-- **Metadata Complete**: Campaign information properly extracted
-- **Array Formatting**: All arrays properly formatted (even single items)
-- **Naming Convention**: snake_case used throughout
-- **Vendor Preservation**: All vendor/product names maintained
+### Stage 2: PowerPoint Generation
+**[PLACEHOLDER: TO BE UPDATED AFTER REVERSE ENGINEERING GTM FABRIC PPTX TEMPLATE]**
+- Custom skill implementation validated
+- GTM Fabric branding applied correctly
+- All ICP content accurately transferred from Markdown
+- Slide structure follows template specifications
 
 ## Continuous Improvement Tips
 
@@ -694,6 +677,76 @@ User requests that trigger this skill:
 6. **Data Source Awareness**: Note whether the ABM campaign targeting relies on HG Insights, BuyerCaddy, intent data, or install base signals—this affects ICP specificity and activation feasibility.
 
 7. **Campaign Objectives Drive Everything**: The DemandScience customer's campaign focus and goals should guide all ICP development—every indicator should tie back to the sales strategy.
+
+---
+
+## Phase 2 Features (Future Enhancement)
+
+### Automated Logo Discovery & Insertion
+
+**Objective**: Replace `{target account logo}` with actual logo image instead of text
+
+**Implementation Approach**:
+
+1. **Logo Discovery**
+   - Extract DemandScience customer name from brief
+   - Web search using queries:
+     - "[Company Name] logo png transparent background"
+     - "[Company Name] official logo download"
+     - "[Company Name] brand assets"
+   - Look for official brand pages, Wikipedia, logo repositories
+
+2. **Logo Download & Validation**
+   ```python
+   def validate_logo(logo_file):
+       checks = {
+           'resolution': logo_width >= 300,  # Minimum 300px width
+           'format': ext in ['png', 'svg', 'jpg', 'jpeg'],
+           'file_size': size_mb < 2,  # Maximum 2MB
+           'background': has_transparency or has_white_bg
+       }
+       return all(checks.values())
+   ```
+
+3. **User Validation Workflow**
+   - Display found logo(s) to user
+   - User options:
+     - ✓ Approve displayed logo
+     - ↑ Upload alternative logo file
+     - ⊗ Skip Slide 2 entirely
+   - Insert approved logo into Slide 2 `{target account logo}` position
+
+4. **Logo Insertion**
+   ```python
+   # Replace text placeholder with image
+   # Maintain aspect ratio
+   # Position: Center-right area of Slide 2
+   # Max width: ~4 inches
+   # Format: PNG with transparency preferred
+   ```
+
+5. **Fallback Handling**
+   - Logo not found → Prompt for manual upload
+   - User declines → Remove Slide 2 from deck
+   - Upload fails → Continue with text fallback (Phase 1 behavior)
+
+**API/Service Options**:
+- WebSearch tool for logo discovery
+- Optional: Clearbit Logo API, Brandfetch API
+- Image download and format conversion libraries
+
+**Quality Validation**:
+- Minimum resolution: 300x300px
+- Supported formats: PNG (preferred), SVG, JPG, JPEG
+- Maximum file size: 2MB
+- Background: Transparent or white preferred
+
+**Time Impact**: +30-60 seconds for logo fetch and validation
+
+**Dependencies**:
+- Image processing library (Pillow)
+- URL download capabilities
+- File format conversion support
 
 ---
 
@@ -770,16 +823,16 @@ print(markdown_icps)
 **Expected Time**: 2-3 minutes
 **Token Usage**: Approximately 3,000-5,000 tokens total
 
-### Stage 2: JSON Generation API Call
+### Stage 2: PowerPoint Generation API Call
 
-**Purpose**: Convert approved Markdown to structured JSON format
+**Purpose**: Convert approved Markdown to branded PowerPoint deck
 
 **Important**: User must approve Markdown from Stage 1 before proceeding
 
 ```python
 # After user approves Markdown, prepare Stage 2 prompt
 stage2_prompt = f"""
-The user has approved the following ICPs. Please convert them to structured JSON format.
+The user has approved the following ICPs. Please convert them to a branded PowerPoint presentation following the GTM Fabric template specifications.
 
 Approved ICPs:
 {markdown_icps}
@@ -788,17 +841,18 @@ Campaign Details:
 - DemandScience Customer: [Extract from email]
 - Products: [Extract from email]
 - Campaign Goal: [Extract from email]
-- Target Region: [Extract from email]
 - Year: 2025
 
-Generate well-formatted JSON with:
-- campaign_metadata object with all campaign details
-- icps array containing all ICPs with proper structure
-- All fields following snake_case naming convention
-- Valid JSON syntax with proper escaping
+Generate the PowerPoint deck with:
+- Slide 1: Campaign cover slide with customer name and products
+- Slide 2: "{customer_name}" as text (Phase 1 implementation)
+- Slides 3-4: Static GTM Fabric content (copy unchanged from template)
+- Slides 5+: One slide per ICP (minimum 3 ICPs)
+
+Apply all GTM Fabric branding specifications from the template.
 """
 
-# Stage 2: JSON Generation
+# Stage 2: PowerPoint Generation
 stage2_response = client.beta.messages.create(
     model="claude-sonnet-4-5",
     max_tokens=4096,
@@ -807,6 +861,11 @@ stage2_response = client.beta.messages.create(
             {
                 "type": "custom",
                 "skill_id": DEMANDSCIENCE_SKILL_ID,
+                "version": "latest"
+            },
+            {
+                "type": "anthropic",  # Anthropic's built-in PowerPoint skill
+                "skill_id": "pptx",
                 "version": "latest"
             }
         ]
@@ -823,107 +882,93 @@ stage2_response = client.beta.messages.create(
 print(f"Stage 2 Tokens: {stage2_response.usage.input_tokens} in, {stage2_response.usage.output_tokens} out")
 ```
 
-**Expected Output**: Structured JSON
-**Expected Time**: <30 seconds
-**Token Usage**: Approximately 3,000-5,000 tokens total
+**Expected Output**: Branded .pptx file
+**Expected Time**: 1-2 minutes
+**Token Usage**: Approximately 2,000-3,000 tokens total
 
-### JSON Extraction Implementation
+### File Download Implementation
 
-**Extract JSON from response text content:**
+**Critical**: Use the correct beta API methods for file handling
 
 ```python
-import json
-
-def extract_json(response):
+def extract_file_ids(response):
     """
-    Extract JSON from Claude's response.
+    Extract file IDs from beta API response.
 
-    The JSON will be in the text content of the response.
+    File IDs are located in bash_code_execution_tool_result content blocks.
     """
+    file_ids = []
     for content in response.content:
-        if content.type == "text":
-            text = content.text
+        if hasattr(content, 'type') and content.type == 'bash_code_execution_tool_result':
+            if hasattr(content, 'content') and content.content:
+                for item in content.content:
+                    if hasattr(item, 'file_id') and item.file_id:
+                        file_ids.append(item.file_id)
+    return file_ids
 
-            # Find JSON in the response (may be wrapped in markdown code blocks)
-            if "```json" in text:
-                # Extract from code block
-                start = text.find("```json") + 7
-                end = text.find("```", start)
-                json_str = text[start:end].strip()
-            elif "{" in text:
-                # Try to extract raw JSON
-                start = text.find("{")
-                end = text.rfind("}") + 1
-                json_str = text[start:end]
-            else:
-                raise ValueError("No JSON found in response")
+def download_file(client, file_id, output_dir, prefix=""):
+    """
+    Download a file using the beta Files API.
 
-            # Parse and validate JSON
-            try:
-                icps_data = json.loads(json_str)
-                return icps_data
-            except json.JSONDecodeError as e:
-                print(f"❌ Invalid JSON: {e}")
-                print(f"Raw content: {json_str[:200]}...")
-                raise
+    IMPORTANT:
+    - Use .read() method, not .content attribute
+    - Use metadata.size_bytes, not metadata.size
+    """
+    try:
+        # Get file metadata
+        metadata = client.beta.files.retrieve_metadata(file_id)
 
-    raise ValueError("No text content in response")
+        # Construct output filename
+        filename = f"{prefix}{metadata.filename}"
+        output_path = Path(output_dir) / filename
 
-# Extract and save JSON from Stage 2
-try:
-    icps_json = extract_json(stage2_response)
+        # Download file content
+        file_content = client.beta.files.download(file_id)
 
-    # Save to file
-    output_path = Path("outputs") / "icps.json"
-    with open(output_path, 'w') as f:
-        json.dump(icps_json, f, indent=2)
+        # Write to disk
+        with open(output_path, 'wb') as f:
+            f.write(file_content.read())  # ✅ Use .read(), not .content
 
-    print(f"✅ JSON saved to: {output_path}")
-    print(f"📊 ICPs generated: {icps_json['campaign_metadata']['total_icps']}")
+        print(f"✅ Downloaded: {filename} ({metadata.size_bytes} bytes)")  # ✅ Use size_bytes
+        return output_path
 
-except Exception as e:
-    print(f"❌ JSON extraction failed: {e}")
+    except Exception as e:
+        print(f"❌ Download failed for {file_id}: {e}")
+        return None
+
+# Download PowerPoint file from Stage 2
+file_ids = extract_file_ids(stage2_response)
+if file_ids:
+    for file_id in file_ids:
+        pptx_path = download_file(
+            client,
+            file_id,
+            output_dir="outputs",
+            prefix="icp_deck_"
+        )
+        print(f"PowerPoint saved to: {pptx_path}")
+else:
+    print("⚠️ No files generated. Check response for errors.")
 ```
 
-**JSON Validation:**
+**Common Errors to Avoid:**
 
 ```python
-def validate_icp_json(data):
-    """Validate ICP JSON structure."""
-    required_fields = {
-        "campaign_metadata": ["demandscience_customer", "products", "campaign_goal", "generated_date", "total_icps"],
-        "icp": ["icp_id", "title", "industries", "departments", "key_roles", "technographic_fit"]
-    }
+# ❌ WRONG: Using .content attribute (does not exist)
+file_content = client.beta.files.download(file_id)
+data = file_content.content  # AttributeError: 'BinaryAPIResponse' object has no attribute 'content'
 
-    # Check campaign metadata
-    if "campaign_metadata" not in data:
-        return False, "Missing campaign_metadata"
+# ✅ CORRECT: Using .read() method
+file_content = client.beta.files.download(file_id)
+data = file_content.read()
 
-    for field in required_fields["campaign_metadata"]:
-        if field not in data["campaign_metadata"]:
-            return False, f"Missing campaign_metadata.{field}"
+# ❌ WRONG: Using .size attribute (does not exist)
+metadata = client.beta.files.retrieve_metadata(file_id)
+size = metadata.size  # AttributeError: 'FileMetadata' object has no attribute 'size'
 
-    # Check ICPs array
-    if "icps" not in data or not isinstance(data["icps"], list):
-        return False, "Missing or invalid icps array"
-
-    if len(data["icps"]) < 3:
-        return False, f"Expected at least 3 ICPs, got {len(data['icps'])}"
-
-    # Check each ICP structure
-    for i, icp in enumerate(data["icps"]):
-        for field in required_fields["icp"]:
-            if field not in icp:
-                return False, f"ICP {i+1} missing field: {field}"
-
-    return True, "Valid"
-
-# Validate extracted JSON
-is_valid, message = validate_icp_json(icps_json)
-if is_valid:
-    print(f"✅ JSON validation passed")
-else:
-    print(f"❌ JSON validation failed: {message}")
+# ✅ CORRECT: Using .size_bytes attribute
+metadata = client.beta.files.retrieve_metadata(file_id)
+size = metadata.size_bytes
 ```
 
 ### Error Handling
@@ -939,30 +984,18 @@ except Exception as e:
         raise e
 ```
 
-**JSON Parsing Failed:**
+**File Download Failed:**
 ```python
-def extract_json_with_retry(response, max_attempts=3):
-    """Try multiple strategies to extract JSON."""
-    strategies = [
-        lambda t: json.loads(t[t.find("```json")+7:t.find("```", t.find("```json")+7)]),
-        lambda t: json.loads(t[t.find("{"):t.rfind("}")+1]),
-        lambda t: json.loads(t.strip())
-    ]
-
-    text = next((c.text for c in response.content if c.type == "text"), None)
-    if not text:
-        raise ValueError("No text content in response")
-
-    for i, strategy in enumerate(strategies):
+def download_with_retry(client, file_id, max_retries=3):
+    for attempt in range(max_retries):
         try:
-            return strategy(text)
-        except (json.JSONDecodeError, ValueError, IndexError) as e:
-            if i < len(strategies) - 1:
-                continue
+            return download_file(client, file_id, "outputs")
+        except Exception as e:
+            if attempt < max_retries - 1:
+                print(f"Retry {attempt + 1}/{max_retries}...")
+                time.sleep(2)
             else:
-                print(f"❌ All JSON extraction strategies failed")
-                print(f"Raw response: {text[:500]}...")
-                raise
+                raise e
 ```
 
 **User Approval Not Received:**
@@ -1004,20 +1037,19 @@ Expected: ~5,000-8,000 total tokens (90% reduction vs. manual prompting)
 
 ### Performance Benchmarking
 
-Based on implementation testing:
+Based on Claude Skills testing:
 
 | Stage | Expected Time | Token Range | Success Rate |
 |-------|---------------|-------------|--------------|
-| **Stage 1** (ICP Markdown) | 2-3 minutes | 60,000-70,000 | 95%+ |
-| **Stage 2** (JSON) | <30 seconds | 3,000-5,000 | 98%+ |
-| **Total Workflow** | <5 minutes | 65,000-75,000 | 93%+ |
+| **Stage 1** (ICP Markdown) | 2-3 minutes | 3,000-5,000 | 95%+ |
+| **Stage 2** (PowerPoint) | 1-2 minutes | 2,000-3,000 | 98%+ |
+| **Total Workflow** | <10 minutes | 5,000-8,000 | 93%+ |
 
 **Optimization Tips:**
 - Keep skill instructions under 5,000 tokens for faster loading
-- Use progressive disclosure (metadata → instructions)
+- Use progressive disclosure (metadata → instructions → resources)
 - Reuse skill container across multiple requests
-- Extract and validate JSON immediately after generation
-- Cache research findings to avoid repeated web searches
+- Download files immediately after generation
 
 ---
 

@@ -173,13 +173,17 @@ After user approves Markdown ICPs, convert them to PowerPoint using the existing
    - **Phase 2** (Future): Replace with actual logo image
    - Position: Center-right (9.69", 2.95")
 
-3. **Slide 3**: GTM Fabric Value Proposition
-   - Fixed content from template (no changes needed)
-   - Shows "Key Elements Required For E2E Use Case Solutions"
+3. **Slide 3**: Key Elements for E2E Solutions (STATIC)
+   - **Never modified** - GTM Fabric value proposition content
+   - Copy as-is from template without any text replacement
+   - Shows 4 quadrants of GTM Fabric offerings
+   - Header: "Key Elements Required For E2E Use Case Solutions"
 
-4. **Slide 4**: Propensity Funnel
-   - Fixed content from template (no changes needed)
-   - Market segmentation methodology
+4. **Slide 4**: Propensity Funnel (STATIC)
+   - **Never modified** - GTM Fabric methodology framework
+   - Copy as-is from template without any text replacement
+   - Placeholder fields remain unpopulated by this skill
+   - Market segmentation visualization
 
 5-N. **Slides 5+**: One slide per ICP
    - Duplicate Slide 5 template for each ICP

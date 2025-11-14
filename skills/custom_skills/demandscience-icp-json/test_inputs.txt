@@ -1,0 +1,127 @@
+# DemandScience ICP JSON Skill - Test Inputs
+
+## Test Input 1: Vena Solutions (Financial Planning)
+
+From: DemandScience Partner <partner@demandscience.com>
+Subject: Campaign Request - Vena Solutions
+
+We need ICPs for Vena Solutions targeting finance teams in mid-market companies.
+
+Products: Vena Complete Planning Platform
+Target Industries: Technology, Manufacturing, Professional Services
+Use Case: Replacing legacy Excel-based planning and Oracle/SAP EPM systems
+Region: North America
+
+Please generate ICPs for this campaign.
+
+---
+
+## Test Input 2: Kaspersky (Cybersecurity)
+
+From: DemandScience Partner <partner@demandscience.com>
+Subject: Campaign Request - Kaspersky XDRO
+
+We need ICPs for Kaspersky's new endpoint security solution.
+
+DemandScience Customer: Kaspersky
+Products: XDRO (Extended Detection and Response for Endpoints)
+Target Market: Mid-market and enterprise companies
+Industries: Financial Services, Healthcare, Retail
+Use Case: Modernizing legacy endpoint protection
+Competitive Targets: Symantec Endpoint Protection, McAfee ePO, Trend Micro
+Region: Global
+
+Campaign Goal: Position XDRO as modern alternative to legacy antivirus solutions.
+
+---
+
+## Test Input 3: Autodesk (Software Licensing)
+
+From: DemandScience Partner <partner@demandscience.com>
+Subject: Campaign Request - Autodesk License Compliance
+
+DemandScience Customer: Autodesk
+Offering: Commercial license upgrades
+Target Audience: EU companies (<1000 employees) using free versions
+Products: AutoCAD, Inventor, Revit
+Campaign Goal: Convert free users to paid commercial licenses
+Sales Motion: Upsell/expansion play leveraging existing product usage
+Data Source: HG Insights technographic coverage
+Region: EMEA
+
+---
+
+## Test Input 4: HubSpot (Marketing Automation)
+
+From: DemandScience Partner <partner@demandscience.com>
+Subject: Campaign Request - HubSpot Marketing Hub
+
+We need ICPs for HubSpot Marketing Hub targeting B2B marketing teams.
+
+Products: HubSpot Marketing Hub Enterprise
+Target Industries: Technology, Professional Services, Manufacturing
+Use Case: Replacing legacy marketing automation platforms and spreadsheet-based tracking
+Competitive Targets: Marketo, Oracle Eloqua, Pardot
+Target Buyers: CMO, VP Marketing, Marketing Operations
+Region: North America
+
+Campaign Goal: Position HubSpot as modern, user-friendly alternative to complex enterprise marketing automation.
+
+---
+
+## Test Input 5: Snowflake (Data Warehouse)
+
+From: DemandScience Partner <partner@demandscience.com>
+Subject: Campaign Request - Snowflake Data Cloud
+
+DemandScience Customer: Snowflake
+Products: Snowflake Data Cloud
+Target Market: Enterprise and mid-market companies
+Industries: Retail, Financial Services, Healthcare, Technology
+Use Case: Modernizing legacy on-premise data warehouses
+Competitive Targets: Oracle Exadata, IBM Netezza, Teradata, SAP BW
+Target Buyers: CDO (Chief Data Officer), VP Data Engineering, Head of Analytics
+Campaign Goal: Drive migration from legacy on-premise data warehouses to cloud
+
+---
+
+## Test Input 6: KnowBe4 (Security Awareness Training)
+
+From: DemandScience Partner <partner@demandscience.com>
+Subject: Campaign Request - KnowBe4 Security Awareness
+
+We need ICPs for KnowBe4 targeting organizations with compliance requirements.
+
+Products: KnowBe4 Security Awareness Training Platform
+Target Industries: Financial Services, Healthcare, Government, Education
+Use Case: Meeting compliance requirements (HIPAA, SOC 2, PCI-DSS) and reducing phishing risk
+Target Buyers: CISO, Director of Security Awareness, Compliance Officer
+Competitive Targets: Legacy CBT providers, generic e-learning platforms
+Region: North America and EMEA
+
+Campaign Goal: Position KnowBe4 as compliance-ready, engaging alternative to boring security training.
+
+---
+
+## Usage Instructions
+
+To test with any of these inputs:
+
+1. Copy the desired test input section (including the email format)
+2. Save it to a file (e.g., `vena_test.txt`)
+3. Run: `python test_skill.py --email-file vena_test.txt`
+
+Or use the default Vena Solutions test by running:
+```bash
+python test_skill.py
+```
+
+For non-interactive testing (auto-approve Stage 2):
+```bash
+python test_skill.py --auto-approve
+```
+
+For Stage 1 only (no JSON conversion):
+```bash
+python test_skill.py --skip-stage2
+```

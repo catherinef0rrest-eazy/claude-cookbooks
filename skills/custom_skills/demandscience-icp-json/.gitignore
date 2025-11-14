@@ -1,0 +1,23 @@
+# Environment and API keys
+.env
+
+# Generated skill IDs
+skill_id.txt
+
+# Test outputs
+test_outputs/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store

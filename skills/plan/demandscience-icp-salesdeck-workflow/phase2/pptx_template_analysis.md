@@ -7,13 +7,14 @@
 
 ## Executive Summary
 
-The template contains **5 slides** with a **widescreen format (20" x 11.25")**. The critical slide is **Slide 5**, which serves as the repeatable ICP template. The deck follows a specific structure:
+The template contains **5 slides** with a **widescreen format 16:9**, approximately 13.33 inches by 7.5 inches, or 1920 pixels by 1080 pixels. 
 
-1. Cover Slide
-2. Cover Slide with Target Account Logo
-3. Key Elements for E2E Solutions (GTM Fabric value prop)
-4. Propensity Funnel (market segmentation)
-5. **ICP Template (REPEATABLE)**
+The critical slide is **Slide 5**, which serves as the repeatable ICP template. The deck follows a specific structure:
+
+1. Title Slide with DemandScience Customer Logo
+2. Key Elements for E2E Solutions (GTM Fabric value prop)
+3. Propensity Funnel (market segmentation)
+4. **ICP Template (REPEATABLE)**
 
 ---
 
@@ -53,6 +54,9 @@ The template contains **5 slides** with a **widescreen format (20" x 11.25")**. 
 #### Slide 3: Key Elements Required For E2E Use Case Solutions
 **Purpose**: GTM Fabric value proposition overview
 
+**⚠️ STATIC CONTENT - NEVER MODIFIED**
+This slide contains fixed GTM Fabric branding and value proposition content. It is included as-is in every deck without modification.
+
 **Content Areas** (4 quadrants):
 - Top Left: Neutral vendor mgmt, data value, harmonization
 - Top Right: Architecture & design, integration, analytical tools
@@ -61,19 +65,26 @@ The template contains **5 slides** with a **widescreen format (20" x 11.25")**. 
 
 **Header**: "Key Elements Required For E2E Use Case Solutions" (36pt, Purple)
 
+**Implementation Note**: Copy from template unchanged - no text replacement or dynamic content needed.
+
 #### Slide 4: Propensity Funnel
 **Purpose**: Market segmentation and targeting methodology
+
+**⚠️ STATIC CONTENT - NEVER MODIFIED**
+This slide contains GTM Fabric's standard methodology framework. While it has placeholder fields, these are illustrative and not populated by this skill. The slide is included as-is from the template.
 
 **Structure**:
 - Left column: Market hierarchy (TAM-SAM-SOM views)
 - Right column: Placeholder values for each view level
 - Header: "Propensity Funnel" (36pt, Purple)
 
-**Placeholder Fields**:
+**Placeholder Fields** (NOT populated by skill):
 - `{market to account view value}`
 - `{account to product view value}`
 - `{product to user view value}`
 - `{user to contact view}`
+
+**Implementation Note**: Copy from template unchanged - placeholders remain as-is.
 
 #### **Slide 5: ICP Template (CRITICAL)**
 **Purpose**: Repeatable template for each ICP generated
